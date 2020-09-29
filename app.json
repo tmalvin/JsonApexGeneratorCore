@@ -1,8 +1,8 @@
 {
-  "name": "AspNet5DemoApp",
-  "description": "Demo app on ASP.NET Core",
-  "repository": "https://github.com/jincod/AspNet5DemoApp",
-  "keywords": ["aspnet", "core"],
+  "name": "JsonApexGeneratorCore",
+  "description": "Generate Apex Code templates for REST API integration based on JSON input and output",
+  "repository": "https://github.com/TMATWorkshop/JsonApexGeneratorCore",
+  "keywords": ["aspnet", "core", "apex", "json"],
   "stack": "heroku-16",
   "buildpacks": [
     {
