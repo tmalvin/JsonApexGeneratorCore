@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from 'react';
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -16,7 +16,15 @@ import api from './api';
 
 const dashboardRoutes = [];
 //export default class List extends Component {
-export default class {
+class App extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			items: []
+		};
+	}
+
 	componentDidMount() {
 		api.getValues()
 			.then(items => this.setState({items}));
@@ -55,7 +63,7 @@ export default class {
 			  <Parallax filter image={require("./assets/img/landing-bg.jpg")}>
 				
 			  </Parallax>
-			  <div className={classNames(classes.main, classes.mainRaised)}>
+			  	<div className={classNames(classes.main, classes.mainRaised)}>
 				<div className={classes.container}>
 				  <FormPage />
 				</div>
@@ -65,3 +73,5 @@ export default class {
 		  );
 	}
 }
+
+export default withStyles(landingPageStyle)(App);
