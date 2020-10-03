@@ -1,11 +1,11 @@
 {
-  "name": "aspnet-core-demo-app",
+  "name": "jsonapexgeneratorcore",
   "version": "0.0.1",
   "private": true,
-  "description": "Demo app",
+  "description": "Generate Apex Code templates for REST API integration based on JSON input and output",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jincod/AspNet5DemoApp.git"
+    "url": "https://github.com/TMATWorkshop/JsonApexGeneratorCore.git"
   },
   "dependencies": {
     "nan": "2.14.1",
