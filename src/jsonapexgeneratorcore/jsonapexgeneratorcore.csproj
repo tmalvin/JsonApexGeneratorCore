@@ -8,6 +8,11 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.Json" Version="4.7.1" />
+  </ItemGroup>
+
   <Target Name="PrePublishTarget" BeforeTargets="PrepareForPublish" Condition="$(DOTNET_RUNNING_IN_CONTAINER) != 'true'">
     <Exec Command="npm install" />
     <Exec Command="npm run build" />
