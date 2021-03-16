@@ -17,16 +17,28 @@ import GridContainer from "../../../components/Grid/GridContainer.js";
 import GridItem from "../../../components/Grid/GridItem.js";
 import InfoArea from "../../../components/InfoArea/InfoArea.js";
 
+import api from '../../../api';
+
 import productStyle from "../../../assets/jss/material-kit-react/views/landingPageSections/productStyle.js";
 
 class FormPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {className: '', 
+                  classNameMsg: 'Enter Class Name prefix',
+                  classNameError: false,
                   namedCredential: '', 
+                  namedCredentialMsg: 'Enter Named Credential API Name',
+                  namedCredentialError: false,
                   requestType: 'POST',
                   requestJSON: '',
-                  responseJSON: ''};
+                  requestJSONErrorMsg: '',
+                  requestJSONError: false,
+                  responseJSON: '',
+                  responseJSONErrorMsg: '',
+                  responseJSONError: false,
+
+                };
 
     this.handleChange = this.handleChange.bind(this);
     this.validateRequestJSON = this.validateRequestJSON.bind(this);
@@ -41,24 +53,33 @@ class FormPage extends React.Component {
 
   validateRequestJSON(event) {
     try {
-      JSON.parse(this.state.requestJSON);
-      this.setState({requestJSON: 
-        JSON.stringify(this.state.requestJSON, undefined, 2)});
+      var jsonObj = JSON.parse(this.state.requestJSON);
+      var prettyJSON = JSON.stringify(jsonObj, undefined, 2);
+      this.setState({requestJSON: prettyJSON }); 
+      this.setState({ requestJSONErrorMsg : '', requestJSONError : false });
     }
     catch (err) {
-        return false;
+      console.log(err);
+      this.setState({ requestJSONErrorMsg : err.message, requestJSONError : true });
     }
   }
 
   validateResponseJSON(event) {
     try {
-      JSON.parse(this.state.responseJSON);
-      this.setState({responseJSON: 
-        JSON.stringify(this.state.responseJSON, undefined, 2)});
+      var jsonObj = JSON.parse(this.state.responseJSON);
+      var prettyJSON = JSON.stringify(jsonObj, undefined, 2);
+      this.setState({responseJSON: prettyJSON });
+      this.setState({ responseJSONErrorMsg : '', responseJSONError : false });
     }
     catch (err) {
       //Highlight Error in JSON file
+      console.log(err.message);
+      this.setState({ responseJSONErrorMsg : err.message, responseJSONError : true });
     }
+  }
+
+  generateFiles(event) {
+    api.generateFiles();
   }
 
   render() {
@@ -79,25 +100,27 @@ class FormPage extends React.Component {
                 <GridItem xs={12} sm={6} md={4}>
                   <TextField
                     id="txtClassName"
-                    label="Class Name"
                     name="className"
-                    helperText="Enter Class Name prefix"
+                    label={this.state.classNameMsg}
                     variant="outlined"
                     fullWidth
                     value={this.state.className}
                     onChange={this.handleChange}
+                    required
+                    error={this.state.classNameError}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6} md={4}>
                   <TextField
                     id="txtNamedCredential"
-                    label="Named Credential"
                     name="namedCredential"
-                    helperText="Enter Named Credential API Name"
+                    label={this.state.namedCredentialMsg}
                     variant="outlined"
                     fullWidth
                     value={this.state.namedCredential}
                     onChange={this.handleChange}
+                    required
+                    error={this.state.namedCredentialError}
                 />
                 </GridItem>
                 <GridItem xs={12} sm={6} md={4}>
@@ -108,13 +131,17 @@ class FormPage extends React.Component {
                     variant="outlined"
                     value={this.state.requestType}
                     onChange={this.handleChange}
+                    required
                   >
-                    <option selected value="POST">POST</option>
+                    <option value="POST">POST</option>
                     <option value="GET">GET</option>
                   </NativeSelect>
                 </GridItem>
                 <GridItem xs={12}>
-                  <Button variant="contained" color="primary">
+                  <Button 
+                    variant="contained"
+                    color="primary"
+                    onClick={this.generateFiles}>
                     Generate Apex Files
                   </Button>
                 </GridItem>
@@ -142,6 +169,9 @@ class FormPage extends React.Component {
                 variant="outlined"
                 value={this.state.requestJSON}
                 onChange={this.handleChange}
+                helperText={this.state.requestJSONErrorMsg}
+                error={this.state.requestJSONError}
+                required
               />
                 <Button variant="contained" color="primary" onClick={this.validateRequestJSON}>
                     Validate JSON
@@ -167,6 +197,9 @@ class FormPage extends React.Component {
                 variant="outlined"
                 value={this.state.responseJSON}
                 onChange={this.handleChange}
+                helperText={this.state.responseJSONErrorMsg}
+                error={this.state.responseJSONError}
+                required
               />
               <Button variant="contained" color="primary" onClick={this.validateResponseJSON}>
                     Validate JSON

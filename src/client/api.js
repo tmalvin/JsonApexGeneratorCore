@@ -12,6 +12,13 @@ function getValues() {
 		.catch(err => alert(err));
 }
 
+function getFiles() {
+	return fetch('/api/values')
+		.then(handleErrors)
+		.then(response => response.json())
+		.catch(err => alert(err));
+}
+
 export default {
 	getValues
 };
