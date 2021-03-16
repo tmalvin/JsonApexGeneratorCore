@@ -52,6 +52,7 @@ class FormPage extends React.Component {
   }
 
   validateRequestJSON(event) {
+    console.log('validateJSON');
     try {
       var jsonObj = JSON.parse(this.state.requestJSON);
       var prettyJSON = JSON.stringify(jsonObj, undefined, 2);
