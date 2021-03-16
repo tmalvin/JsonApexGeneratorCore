@@ -14,9 +14,9 @@ public static class Helper {
         JsonDocument parsedJSON = JsonDocument.Parse(jsonStr);
 
         foreach(JsonProperty property in parsedJSON.RootElement.EnumerateObject()) {
-            lstVars.add(parseVarType(property));
+            lstVars.Add(parseVarType(property));
         }
-        lstVars.removeAll("");
+        lstVars.Remove("");
         return lstVars;
     }
     
