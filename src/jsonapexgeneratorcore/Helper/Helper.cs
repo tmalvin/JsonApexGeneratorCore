@@ -50,8 +50,8 @@ public static class Helper {
             propertyName = "_" + propertyName;
         }
 
-        switch (property.GetType().FullName) {
-            case "String":
+        switch (property.GetType()) {
+            case typeof(String):
                 apexType = "String " + propertyName + " { get; set; }";
             break;
             case "Int32":
