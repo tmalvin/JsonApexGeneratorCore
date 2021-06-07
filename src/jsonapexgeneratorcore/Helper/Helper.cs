@@ -57,6 +57,9 @@ public static class Helper {
             case typeof(int):
                 apexType = "Integer " + propertyName + " { get; set; }";
             break;
+            case typeof(object):
+                apexType = "Integer " + propertyName + " { get; set; }";
+            break;
             //Handle Subobjects
             //Handle Arrays
         }
